@@ -15,8 +15,7 @@ login_btn = document.getElementById('login_btn')
 
 loginpass = document.getElementById('login_password')
 loginemail = document.getElementById('login_email')
-loginemail.value = "t@t.com"
-loginpass.value = 'test1234'
+
 
 const login = () => {
   const email = loginemail.value
@@ -26,7 +25,7 @@ const login = () => {
   auth.signInWithEmailAndPassword(email, password)
   .then(() => {
     //Signed in successfully
-    console.log('You\'re successfully signed in !');
+    alert('You\'re successfully signed in !');
   })
   .catch(error => {
     console.error(error);
