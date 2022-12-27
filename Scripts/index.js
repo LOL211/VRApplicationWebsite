@@ -7,7 +7,7 @@ storageBucket: "vr-application-29195.appspot.com",
 messagingSenderId: "454382693464",
 appId: "1:454382693464:web:5b34e12099989ab74dee2d"});
 
-const db = firebaseApp.firestore();
+
 const auth = firebaseApp.auth();
 
 
