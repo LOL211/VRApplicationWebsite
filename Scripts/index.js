@@ -15,9 +15,9 @@ login_btn = document.getElementById('login_btn')
 
 loginpass = document.getElementById('login_password')
 loginemail = document.getElementById('login_email')
-loginpass.value="test1234"
-loginemail.value="t@t.com"
 
+loginpass.value="test1234";
+loginemail.value="student1@gmail.com";
 
 
 let user;
@@ -53,10 +53,22 @@ const login = async () => {
    
     //Signed in successfully
     alert('You\'re successfully signed in !');
-    
+    console.log(response["user"]);
     user = response["user"]
     getName();
-
+  
+      const cookies = document.cookie.split(";");
+  
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i];
+          const eqPos = cookie.indexOf("=");
+          const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
+  
+    document.cookie = "id="+await getIdToken()+"; path=/;";
+    document.cookie = "refreshtoken="+user.refreshToken+"; path=/";
+    window.open("../Html/home.html");
   })
   .catch(error => {
     alert("Unsucessful sign-in!")
