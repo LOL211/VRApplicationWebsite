@@ -8,7 +8,9 @@ const firebaseApp = firebase.initializeApp(
   appId: "1:454382693464:web:5b34e12099989ab74dee2d"});
   
   const getCourses = async ()=>{
-    fetch("http://localhost:8080/courses",
+    
+ 
+    fetch("http://localhost:8080/home",
     {
         method:"POST",
         headers: {
@@ -17,18 +19,60 @@ const firebaseApp = firebase.initializeApp(
         'Access-Control-Allow-Origin': '*'
         },
         body:JSON.stringify(
-        {"requestType":"COURSES",
+        {"requestType":"HOME",
             "idToken": getCookie("id")
         }
         )
     }).then(response => {
         if(response==null) console.log("No response");
-        d = new TextDecoder();
+        textDecoder = new TextDecoder();
       let read = response['body'].getReader();
-      read.read().then(t=>  console.log( d.decode(t.value)));  
+      read.read().then(text=>  {
+        
+        let jsonResponse = JSON.parse(textDecoder.decode(text.value));
+       setup(jsonResponse)
+        })  
       
     });
 }
+
+function setup(response)
+{
+  
+  let courselist = JSON.parse(response.courses);
+  console.log(courselist);
+  
+  let bodyy = document.getElementsByClassName("parent")[0]
+  let linklist = document.getElementById("links");
+  courselist.forEach(element=>{
+    console.log(bodyy);
+    linklist.appendChild(createlinks(element.CourseName));
+    bodyy.appendChild(createcourse(element.CourseName, element.Teacher));
+    
+  });
+
+  document.getElementById("title").innerHTML+=response.name;
+}
+
+
+
+
+function createcourse(coursename, teacher){
+  let child = document.createElement("div");
+  child.setAttribute("class", "child");
+  child.innerHTML="<p>"+coursename+"<br><span class=\"details\">Teacher: "+teacher+"</span>";
+  return child;
+}
+
+function createlinks(course)
+{
+  let child = document.createElement("li");
+  child.innerHTML = "<a>"+course+"</a>";
+  return child;
+}
+
+
+
 
 function getCookie(cname) {
     let name = cname + "=";
