@@ -1,3 +1,5 @@
+// import { getfiles } from "./test.js";
+
 const firebaseApp = firebase.initializeApp(
 {
   apiKey: "AIzaSyCpefYz7bDeQkV1evWvFpuEADfNPvsuABU",
@@ -19,7 +21,7 @@ loginpass = document.getElementById('login_password')
 loginemail = document.getElementById('login_email')
 
 loginpass.value="test1234";
-loginemail.value="student1@gmail.com";
+loginemail.value="teacher1@gmail.com";
 
 
 let user;
@@ -45,6 +47,7 @@ const getName = async ()=>{
       
     });
 }
+
 const login = async () => {
   const email = loginemail.value
   const password = loginpass.value;
@@ -70,11 +73,19 @@ const login = async () => {
   
     document.cookie = "id="+await getIdToken()+"; path=/;";
     document.cookie = "refreshtoken="+user.refreshToken+"; path=/";
+    // getfiles();
+    // let getfiles = await import("./test.js")
+    // getfiles.getfiles();
+
     window.open("../Html/home.html");
   })
   .catch(error => {
     alert("Unsucessful sign-in!")
+    console.log(error)
   })
+
+
+
 }
 
 
