@@ -1,16 +1,5 @@
 let createlinks;
 let createhome;
-let response;
-let setupmod;
-
-async function loadresources() {
-  setupmod= await import("./setup.js");
-  response = setupmod.makerequest();
-
-}
-loadresources();
-
-
 
 function setup(response)
 {  
@@ -37,7 +26,8 @@ function createcourse(coursename, teacher){
   return child;
 }
 
-
+let response;
+let setupmod;
   window.onload = async ()=>{
 
    createlinks = setupmod.createlinks;
@@ -46,6 +36,12 @@ function createcourse(coursename, teacher){
     
   }
 
+async function loadresources() {
+  setupmod= await import("./setup.js");
+  response = setupmod.makerequest();
+
+}
+loadresources();
 
 
 
