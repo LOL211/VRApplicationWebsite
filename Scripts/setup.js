@@ -8,33 +8,44 @@ const firebaseApp = firebase.initializeApp(
     messagingSenderId: "454382693464",
     appId: "1:454382693464:web:5b34e12099989ab74dee2d"});
     
- export  const getCourses = async (setup)=>{
-      
-   
-      fetch("http://localhost:8080/home",
-      {
-          method:"POST",
-          headers: {
-          'Accept':"*/*",
-          'Content-Type':"application/json",
-          'Access-Control-Allow-Origin': '*'
-          },
-          body:JSON.stringify(
-          {"requestType":"HOME",
-              "idToken": getCookie("id")
-          }
-          )
-      }).then(response => {
-          if(response==null) console.log("No response");
+export const makerequest = async()=> {
+  let r; 
+ r = await fetch("http://localhost:8080/home",
+  {
+      method:"POST",
+      headers: {
+      'Accept':"*/*",
+      'Content-Type':"application/json",
+      'Access-Control-Allow-Origin': '*'
+      },
+      body:JSON.stringify(
+      {"requestType":"HOME",
+          "idToken": getCookie("id")
+      }
+      )
+  });
+
+  console.log(r);
+
+ return r;
+}
+
+ 
+ 
+ 
+ 
+    export  const getCourses = async (setup, response)=> {
+      console.log(response);
+      response = await response;
+
         let textDecoder = new TextDecoder();
         let read = response['body'].getReader();
         read.read().then(text=>  {
-          
           let jsonResponse = JSON.parse(textDecoder.decode(text.value));
          setup(jsonResponse)
-          })  
+          });  
         
-      });
+      
 }
 
 export  function createlinks(course)

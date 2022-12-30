@@ -1,5 +1,18 @@
 let createlinks;
 let createhome;
+
+let response;
+let setupmod;
+
+
+async function loadresources() {
+  setupmod= await import("./setup.js");
+  response = setupmod.makerequest();
+
+}
+loadresources();
+
+
 function setup(response)
 {  
   let courselist = JSON.parse(response.courses);
@@ -27,17 +40,17 @@ function getParameterByName(name, url = window.location.href) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+window.onload = async ()=>{
+
+  createlinks = setupmod.createlinks;
+   createhome = setupmod.createhome;
+   setupmod.getCourses(setup, response);
+   
+ }
 
 
 
 
 
 
-  window.onload = async ()=>{
-    let setupmod = await import("./setup.js")
-    createlinks = setupmod.createlinks;
-    createhome = setupmod.createhome;
-    setupmod.getCourses(setup)
-    
-  }
   
