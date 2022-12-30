@@ -1,4 +1,6 @@
-const firebaseApp = firebase.initializeApp(
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+
+const firebaseApp = initializeApp(
     {
       apiKey: "AIzaSyCpefYz7bDeQkV1evWvFpuEADfNPvsuABU",
     authDomain: "vr-application-29195.firebaseapp.com",
@@ -34,7 +36,7 @@ export const makerequest = async()=> {
  
  
  
-    export  const getCourses = async (setup, response)=> {
+export  const getCourses = async (setup, response)=> {
       console.log(response);
       response = await response;
 
@@ -43,7 +45,7 @@ export const makerequest = async()=> {
         read.read().then(text=>  {
           let jsonResponse = JSON.parse(textDecoder.decode(text.value));
          setup(jsonResponse)
-          });  
+});  
         
       
 }
