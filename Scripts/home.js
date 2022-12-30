@@ -28,10 +28,9 @@ function createcourse(coursename, teacher){
 
 let response;
 let setupmod;
-  window.onload = async ()=>{
+  window.onload =()=>{
 
-   createlinks = setupmod.createlinks;
-    createhome = setupmod.createhome;
+  
     setupmod.getCourses(setup, response);
     
   }
@@ -39,7 +38,8 @@ let setupmod;
 async function loadresources() {
   setupmod= await import("./setup.js");
   response = setupmod.makerequest();
-
+  createlinks = setupmod.createlinks;
+  createhome = setupmod.createhome;
 }
 loadresources();
 
