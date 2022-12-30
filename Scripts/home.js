@@ -28,12 +28,7 @@ function createcourse(coursename, teacher){
 
 let response;
 let setupmod;
-  window.onload =()=>{
 
-  
-    setupmod.getCourses(setup, response);
-    
-  }
 
 async function loadresources() {
   setupmod= await import("./setup.js");
@@ -43,6 +38,11 @@ async function loadresources() {
 }
 loadresources();
 
+window.onload =()=>{
 
+  
+  setupmod.getCourses(setup, response);
+  
+}
 
   
