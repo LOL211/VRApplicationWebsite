@@ -31,17 +31,22 @@ function getParameterByName(name, url = window.location.href) {
   
 let response;
 let setupmod;
-  window.onload = async ()=>{
-
-   createlinks = setupmod.createlinks;
-    createhome = setupmod.createhome;
-    setupmod.getCourses(setup, response);
-    
-  }
 
 async function loadresources() {
   setupmod= await import("./setup.js");
   response = setupmod.makerequest();
+  createlinks = setupmod.createlinks;
+  createhome = setupmod.createhome;
+  while(true)
+  {
+    // try{
+      setupmod.getCourses(setup, response);
+      break;
+    // }
+    // catch(error)
+    // {
 
+    // }
+  }
+ 
 }
-loadresources();
