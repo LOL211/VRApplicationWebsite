@@ -1,3 +1,6 @@
+let createlinks;
+let createhome;
+
 function setup(response)
 {  
   let courselist = JSON.parse(response.courses);
@@ -5,13 +8,14 @@ function setup(response)
   
   let bodyy = document.getElementsByClassName("parent")[0]
   let linklist = document.getElementById("links");
+
+
   courselist.forEach(element=>{
     console.log(bodyy);
     linklist.appendChild(createlinks(element.CourseName));
-    bodyy.appendChild(createcourse(element.CourseName, element.Teacher));
-    
+    bodyy.appendChild(createcourse(element.CourseName, element.Teacher));  
   });
-
+  linklist.appendChild(createhome());
   document.getElementById("title").innerHTML+=response.name;
 }
 
@@ -24,7 +28,8 @@ function createcourse(coursename, teacher){
 
   window.onload = async ()=>{
     let setupmod = await import("./setup.js")
-    createlinks = setupmod.createlinks;
+   createlinks = setupmod.createlinks;
+    createhome = setupmod.createhome;
     setupmod.getCourses(setup)
     
   }

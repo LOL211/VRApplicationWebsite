@@ -40,7 +40,13 @@ const firebaseApp = firebase.initializeApp(
 export  function createlinks(course)
 {
   let child = document.createElement("li");
-  child.innerHTML = "<a>"+course+"</a>";
+  child.innerHTML = "<a href=\"classhome.html?class="+course+"\">"+course+"</a>";
+  return child;
+}
+export  function createhome()
+{
+  let child = document.createElement("li");
+  child.innerHTML = "<a href=\"home.html\">Home</a>";
   return child;
 }
 

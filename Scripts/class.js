@@ -1,3 +1,5 @@
+let createlinks;
+let createhome;
 function setup(response)
 {  
   let courselist = JSON.parse(response.courses);
@@ -6,18 +8,35 @@ function setup(response)
   let bodyy = document.getElementsByClassName("parent")[0]
   let linklist = document.getElementById("links");
   courselist.forEach(element=>{
-    console.log(bodyy);
+    
     linklist.appendChild(createlinks(element.CourseName));
-        
+    
   });
+  linklist.appendChild(createhome())
 
+  document.getElementById("classtitle").innerHTML+=getParameterByName("class");
+  
   document.getElementById("title").innerHTML+=response.name;
 }
+
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+
+
 
 
   window.onload = async ()=>{
     let setupmod = await import("./setup.js")
     createlinks = setupmod.createlinks;
+    createhome = setupmod.createhome;
     setupmod.getCourses(setup)
     
   }
