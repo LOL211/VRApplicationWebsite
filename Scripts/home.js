@@ -35,14 +35,17 @@ async function loadresources() {
   response = setupmod.makerequest();
   createlinks = setupmod.createlinks;
   createhome = setupmod.createhome;
+  while(true)
+  {
+    try{
+      setupmod.getCourses(setup, response);
+      break;
+    }
+    catch(error)
+    {
+
+    }
+  }
+ 
 }
 loadresources();
-
-window.onload =()=>{
-
-  
-  setupmod.getCourses(setup, response);
-  
-}
-
-  
