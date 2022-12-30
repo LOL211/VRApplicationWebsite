@@ -39,14 +39,15 @@ async function loadresources() {
   createhome = setupmod.createhome;
   while(true)
   {
-    try{
+    // try{
       setupmod.getCourses(setup, response);
       break;
-    }
-    catch(error)
-    {
+    // }
+    // catch(error)
+    // {
 
-    }
+    // }
   }
  
 }
+loadresources();
