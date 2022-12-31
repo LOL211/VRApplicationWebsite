@@ -6,11 +6,11 @@ let createhome;
 let response;
 let setupmod;
 
-
+let classsname = getParameterByName("class");
 
 let storagefile;
-
-
+let teacher= false;
+let verify = false;
 
 
 function setup(response)
@@ -18,12 +18,13 @@ function setup(response)
   let courselist = JSON.parse(response.courses);
   // console.log(courselist);
   
+  
   let linklist = document.getElementById("links");
   courselist.forEach(element=>{
     linklist.appendChild(createlinks(element.CourseName));
   });
   linklist.appendChild(createhome())
-  let classsname = getParameterByName("class");
+
   document.getElementById("classtitle").innerHTML+= classsname;
   document.getElementById("title").innerHTML+=response.name;
 
@@ -43,16 +44,23 @@ function getParameterByName(name, url = window.location.href) {
 
 
 async function getfiles(cname){
+
+  console.log(verify);
+  if(verify !="true")
+ {
+  document.getElementById("bodydiv").innerHTML="<p> Sorry you don't have permission to view this class</p>"
+  return;
+ }
+
+
+
   storagefile = await import("https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js")
-   
   const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef= storagefile.ref(storage, '/'+cname);
-  // const firstPage = await storagefile.list(listRef, { maxResults: 100 });
+  
   storagefile.listAll(listRef)
   .then((res) => {
     res.prefixes.forEach((folderRef) => {
-      // All the prefixes under listRef.
-      // You may call listAll() recursively on them.
     });
     res.items.forEach((itemRef) => {
       storagefile.getMetadata(itemRef)
@@ -76,8 +84,11 @@ async function getfiles(cname){
     // Uh-oh, an error occurred!
   });
 
+  let heading = document.getElementById("heading");
 
-// console.log(firstPage.items);
+
+
+
 }
 
 async function downloadfile(fileref)
@@ -137,7 +148,11 @@ function createrow(fileinfo, item)
 async function loadresources() {
   setupmod= await import("./setup.js");
 
-  response = setupmod.makerequest();
+  verify = await setupmod.verifymemebership(classsname)
+  console.log(verify);
+  
+
+  response = setupmod.makeCourseRequest();
   createlinks = setupmod.createlinks;
   createhome = setupmod.createhome;
   while(true)

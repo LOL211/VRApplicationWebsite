@@ -4,7 +4,7 @@ let createhome;
 function setup(response)
 {  
   let courselist = JSON.parse(response.courses);
-  console.log(courselist);
+  console.log(response);
   
   let bodyy = document.getElementsByClassName("parent")[0]
   let linklist = document.getElementById("links");
@@ -32,13 +32,14 @@ let setupmod;
 
 async function loadresources() {
   setupmod= await import("./setup.js");
-  response = setupmod.makerequest();
+  response = setupmod.makeCourseRequest();
   createlinks = setupmod.createlinks;
   createhome = setupmod.createhome;
   while(true)
   {
     try{
       setupmod.getCourses(setup, response);
+      setupmod.setlogoutbutton();
       break;
     }
     catch(error)

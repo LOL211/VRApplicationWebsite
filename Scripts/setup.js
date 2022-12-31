@@ -18,7 +18,7 @@ export const firebaseApp = initializeApp(
     messagingSenderId: "454382693464",
     appId: "1:454382693464:web:5b34e12099989ab74dee2d"});
     
-export const makerequest = async()=> {
+export const makeCourseRequest = async()=> {
   let r; 
  r = await fetch("http://localhost:8080/home",
   {
@@ -41,11 +41,46 @@ export const makerequest = async()=> {
 }
 
  
+export const verifymemebership = async(classid)=> {
+  let r; 
+  console.log("http://localhost:8080/home/"+classid);
+ r = await fetch("http://localhost:8080/home/"+classid,
+  {
+      method:"POST",
+      headers: {
+      'Accept':"*/*",
+      'Content-Type':"application/json",
+      'Access-Control-Allow-Origin': '*'
+      },
+      body:JSON.stringify(
+      {"requestType":"COURSEDETAIL",
+          "idToken": getCookie("id")
+      }
+      )
+  });
+  let td = new TextDecoder();
+  let rd = r['body'].getReader();
+  let belongs =  td.decode((await rd.read()).value);
+console.log(belongs)
+ return belongs;
+}
+
  
+export const decodeSingleResponse = async (response) =>{
+  let td = new TextDecoder();
+  let rd = r['body'].getReader();
+  let belongs = false;
+  rd.read().then(tt=>  {
+    belongs = td.decode(tt.value);
+    // console.log(jsonResponse);
+});
+console.log(belongs)
+
+}
  
  
 export  const getCourses = async (setup, response)=> {
-      // console.log(response);
+     
       response = await response;
 
         let textDecoder = new TextDecoder();
@@ -53,10 +88,25 @@ export  const getCourses = async (setup, response)=> {
         read.read().then(text=>  {
           let jsonResponse = JSON.parse(textDecoder.decode(text.value));
          setup(jsonResponse)
-});  
-        
-      
+});    
 }
+
+
+export  const getCourseDetails = async (setup, response)=> {
+     
+  response = await response;
+
+    let textDecoder = new TextDecoder();
+    let read = response['body'].getReader();
+    read.read().then(text=>  {
+      let jsonResponse = JSON.parse(textDecoder.decode(text.value));
+     setup(jsonResponse)
+});    
+}
+
+
+
+
 
 export const setlogoutbutton = () =>{
   
@@ -71,7 +121,7 @@ export const setlogoutbutton = () =>{
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
     
-  window.open("index.html");
+  window.open("../index.html");
   }  
   
   
