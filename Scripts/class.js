@@ -12,12 +12,12 @@ let storagefile;
 let teacher= false;
 let verify = false;
 
-
 function setup(response)
 {  
   let courselist = JSON.parse(response.courses);
-  // console.log(courselist);
   
+  teacher = response.role;
+  console.log(teacher)
   
   let linklist = document.getElementById("links");
   courselist.forEach(element=>{
@@ -43,6 +43,49 @@ function getParameterByName(name, url = window.location.href) {
 }
 
 
+async function uploadfiles(file){
+  const storage = storagefile.getStorage();
+  const listRef=storagefile.ref(storage, '/'+classsname+'/'+file.name);
+  storagefile.uploadBytes(listRef, file).then((snapshot) => {
+   getfiles(classsname)
+  });
+  
+  
+  }
+
+
+  function uploadfilesbutton(){
+    let container = document.createElement("div");
+    let fileinput = document.createElement("input");
+    let filesubmit = document.createElement("button");
+    fileinput.setAttribute("type", "file");
+    fileinput.setAttribute("id", "file");
+    filesubmit.setAttribute("type", "button");
+    filesubmit.innerHTML="Upload file";
+    filesubmit.onclick = () =>{
+  
+      let file = document.getElementById("file").files[0];
+      if(file==undefined)
+      {
+        alert("Select file");
+        return;
+      }
+
+      document.getElementById("heading").innerHTML="Uploading"+file.name+"";
+      uploadfiles(file);
+      document.getElementById("heading").innerHTML="Uploaded "+file.name+"";
+    }
+    container.appendChild(fileinput);
+    container.appendChild(filesubmit);
+  
+    return container;
+  
+  }
+
+
+
+
+
 async function getfiles(cname){
 
   console.log(verify);
@@ -57,6 +100,10 @@ async function getfiles(cname){
   storagefile = await import("https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js")
   const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef= storagefile.ref(storage, '/'+cname);
+  let table = document.getElementsByClassName("table")[0];
+
+  while(table.rows.length!=1)
+    table.deleteRow(-1);
   
   storagefile.listAll(listRef)
   .then((res) => {
@@ -75,6 +122,7 @@ async function getfiles(cname){
         filedate:  date.toLocaleDateString(undefined, options)
        }
       document.getElementsByClassName("table")[0].appendChild(createrow(fileinfo, itemRef));
+
       })
       .catch((error) => {
         // Uh-oh, an error occurred!
@@ -84,17 +132,26 @@ async function getfiles(cname){
     // Uh-oh, an error occurred!
   });
 
-  let heading = document.getElementById("heading");
+  let heading = document.getElementById("cap");
+  heading.innerHTML="<p id =\"heading\"></p>";
 
-
-
+  if(teacher=="Teacher")
+  {
+    heading.appendChild(uploadfilesbutton());
+  }
 
 }
+
+
+
 
 async function downloadfile(fileref)
 {
   console.log("got here");
+
+  document.getElementById("heading").innerHTML="Downloading "+fileref.name+"";
   let allblobs = await storagefile.getBlob(fileref);
+  document.getElementById("heading").innerHTML="Downloaded "+fileref.name+"";
   console.log(allblobs);
   let saveBlob = (function () {
     let a = document.createElement("a");
@@ -112,15 +169,7 @@ saveBlob(allblobs, fileref.name);
 
 }
 
-async function uploadfiles(file){
-const storage = getStorage();
-const listRef=ref(storage, '/CS2204/'+file.name);
-uploadBytes(listRef, file).then((snapshot) => {
-console.log('Uploaded a blob or file!');
-});
 
-
-}
 
 function createrow(fileinfo, item)
 {
