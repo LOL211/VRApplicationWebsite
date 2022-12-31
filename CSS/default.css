@@ -42,6 +42,10 @@ body{
     }
 
 }
+#bodydiv{
+    margin-top: 10%;
+    
+}
 
 #menu {
    top:0;
