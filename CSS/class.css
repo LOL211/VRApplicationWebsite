@@ -2,6 +2,11 @@
     padding: 5%;
 }
 caption{
-   
       caption-side: top;
   }
+  .data-row{
+    cursor: pointer;
+}
+.data-row:hover{
+    background-color: rgb(173, 173, 173);
+}
