@@ -1,6 +1,14 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
 
-const firebaseApp = initializeApp(
+
+
+
+
+
+
+
+
+export const firebaseApp = initializeApp(
     {
       apiKey: "AIzaSyCpefYz7bDeQkV1evWvFpuEADfNPvsuABU",
     authDomain: "vr-application-29195.firebaseapp.com",
@@ -27,7 +35,7 @@ export const makerequest = async()=> {
       )
   });
 
-  console.log(r);
+  // console.log(r);
 
  return r;
 }
@@ -37,7 +45,7 @@ export const makerequest = async()=> {
  
  
 export  const getCourses = async (setup, response)=> {
-      console.log(response);
+      // console.log(response);
       response = await response;
 
         let textDecoder = new TextDecoder();
@@ -49,6 +57,26 @@ export  const getCourses = async (setup, response)=> {
         
       
 }
+
+export const setlogoutbutton = () =>{
+  
+  let logout = document.getElementById("logout")
+  logout.onclick= () =>{
+    const cookies = document.cookie.split(";");
+    
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    
+  window.open("index.html");
+  }  
+  
+  
+}
+
 
 export  function createlinks(course)
 {

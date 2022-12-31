@@ -35,14 +35,7 @@ const login = async () => {
 
     user = response["user"]
 
-      const cookies = document.cookie.split(";");
-  
-      for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i];
-          const eqPos = cookie.indexOf("=");
-          const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      }
+     clearcookies();
   
     document.cookie = "id="+await getIdToken()+"; path=/;";
     document.cookie = "refreshtoken="+user.refreshToken+"; path=/";
@@ -53,6 +46,17 @@ const login = async () => {
     alert("Unsucessful sign-in!")
     console.log(error)
   })
+}
+
+function clearcookies(){
+  const cookies = document.cookie.split(";");
+  
+  for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
 }
 
 login_btn.addEventListener("click", login)
