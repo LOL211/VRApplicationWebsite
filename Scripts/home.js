@@ -23,6 +23,9 @@ function createcourse(coursename, teacher){
   let child = document.createElement("div");
   child.setAttribute("class", "child");
   child.innerHTML="<p>"+coursename+"<br><span class=\"details\">Teacher: "+teacher+"</span>";
+  child.onclick = ()=>{
+    window.open("classhome.html?class="+coursename, "_top");
+  }
   return child;
 }
 

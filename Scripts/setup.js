@@ -121,7 +121,7 @@ export const setlogoutbutton = () =>{
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
     
-  window.open("../index.html");
+  window.open("../index.html","_top");
   }  
   
   

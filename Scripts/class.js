@@ -174,6 +174,7 @@ saveBlob(allblobs, fileref.name);
 function createrow(fileinfo, item)
 {
   let row = document.createElement("tr");
+  row.classList.add("data-row")
   let filename = document.createElement("td");
   filename.innerHTML=fileinfo.filename;
   let filedate = document.createElement("td");
