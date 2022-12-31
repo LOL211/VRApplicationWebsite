@@ -15,7 +15,7 @@
 
 
          <link rel="stylesheet" type="text/css" href="../CSS/default.css">
-         <!-- <link rel="stylesheet" href="../CSS/home.css"> -->
+         <link rel="stylesheet" href="../CSS/class.css">
         
        
         
@@ -47,15 +47,45 @@
                  
                   <div id="end">
                      <hr>
-                      <a href="">Logout</a> | <a href="">View Profile</a></p>
+                      <a id="logout" href="">Logout</a> | <a href="">View Profile</a></p>
                   </div>
             </div>
          </header>
          <div id="bodydiv">
-          <div class="parent", name="parent">
-              </div>
+          <div class="table-responsive">
+          <table class="table table-borderless table-hover">
+            <tr>
+              <th scope="col">
+                Filename
+              </th>
+              <th scope="col">
+                Upload time
+              </th>
+              <th scope="col">
+                Size
+              </th>
+              
+            </tr>
+            
+          </table>
+        </div>
          </div>
-      
+         <!-- <script>
+          function addRowHandlers() {
+              var table = document.getElementsByClassName("table")[0];
+              var rows = table.getElementsByTagName("tr");
+              for (i = 0; i < rows.length; i++) {
+                  row = table.rows[i];
+                  row.onclick = function(){
+                                    var cell = this.getElementsByTagName("td")[0];
+                                    var id = cell.innerHTML;
+                                    alert("id:" + id);
+                                };
+              }
+          }
+          addRowHandlers();
+         </script>
+       -->
        
         
      
