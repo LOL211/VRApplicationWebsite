@@ -68,7 +68,7 @@ async function uploadfiles(file){
     fileinput.setAttribute("id", "file");
     filesubmit.setAttribute("type", "button");
     filesubmit.innerHTML="Upload file";
-    filesubmit.onclick = () =>{
+    filesubmit.onclick = async () =>{
   
       let file = document.getElementById("file").files[0];
       if(file==undefined)
@@ -78,7 +78,7 @@ async function uploadfiles(file){
       }
 
       document.getElementById("heading").innerHTML="Uploading"+file.name+"";
-      uploadfiles(file);
+      await uploadfiles(file);
       document.getElementById("heading").innerHTML="Uploaded "+file.name+"";
     }
     container.appendChild(fileinput);
