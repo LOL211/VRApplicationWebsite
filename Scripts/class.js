@@ -52,11 +52,11 @@ async function uploadfiles(file){
 
   const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef=storagefile.ref(storage, '/'+classsname+'/'+file.name);
-  storagefile.uploadBytes(listRef, file).then((snapshot) => {
+  await storagefile.uploadBytes(listRef, file).then((snapshot) => {
    getfiles(classsname)
   });
   
-  
+  return null;
   }
 
 
@@ -68,7 +68,7 @@ async function uploadfiles(file){
     fileinput.setAttribute("id", "file");
     filesubmit.setAttribute("type", "button");
     filesubmit.innerHTML="Upload file";
-    filesubmit.onclick = async () =>{
+    filesubmit.onclick = () =>{
   
       let file = document.getElementById("file").files[0];
       if(file==undefined)
@@ -77,9 +77,11 @@ async function uploadfiles(file){
         return;
       }
 
-      document.getElementById("heading").innerHTML="Uploading"+file.name+"";
-      await uploadfiles(file);
-      document.getElementById("heading").innerHTML="Uploaded "+file.name+"";
+      document.getElementById("heading").innerHTML="Uploading "+file.name+"";
+      uploadfiles(file).then(no =>{
+        document.getElementById("heading").innerHTML="Uploaded "+file.name+"";
+      });
+      
     }
     container.appendChild(fileinput);
     container.appendChild(filesubmit);
