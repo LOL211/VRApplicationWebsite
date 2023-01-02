@@ -11,13 +11,18 @@ let classsname = getParameterByName("class");
 let storagefile;
 let teacher= false;
 let verify = false;
+let teachertoken;
+
+
+
 
 function setup(response)
 {  
+
+
   let courselist = JSON.parse(response.courses);
   
   teacher = response.role;
-  console.log(teacher)
   
   let linklist = document.getElementById("links");
   courselist.forEach(element=>{
@@ -44,7 +49,8 @@ function getParameterByName(name, url = window.location.href) {
 
 
 async function uploadfiles(file){
-  const storage = storagefile.getStorage();
+
+  const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef=storagefile.ref(storage, '/'+classsname+'/'+file.name);
   storagefile.uploadBytes(listRef, file).then((snapshot) => {
    getfiles(classsname)
@@ -88,7 +94,7 @@ async function uploadfiles(file){
 
 async function getfiles(cname){
 
-  console.log(verify);
+
   if(verify !="true")
  {
   document.getElementById("bodydiv").innerHTML="<p> Sorry you don't have permission to view this class</p>"
@@ -147,12 +153,12 @@ async function getfiles(cname){
 
 async function downloadfile(fileref)
 {
-  console.log("got here");
+
 
   document.getElementById("heading").innerHTML="Downloading "+fileref.name+"";
   let allblobs = await storagefile.getBlob(fileref);
   document.getElementById("heading").innerHTML="Downloaded "+fileref.name+"";
-  console.log(allblobs);
+ 
   let saveBlob = (function () {
     let a = document.createElement("a");
     a.style = "display: none";
@@ -184,7 +190,7 @@ function createrow(fileinfo, item)
   row.appendChild(filename);
   row.appendChild(filedate);
   row.appendChild(filesize);
-  console.log(fileinfo.filedate);
+
 
   row.onclick= 
   ()=>{
@@ -199,8 +205,17 @@ async function loadresources() {
   setupmod= await import("./setup.js");
 
   verify = await setupmod.verifymemebership(classsname)
-  console.log(verify);
+ 
+  import("https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js").then( async response => { 
+    
+  authfile = response;
+    let token = await setupmod.getToken();
+   
+    auth = authfile.getAuth(setupmod.firebaseApp);
+    authfile.signInWithCustomToken(auth, token);
+  })
   
+
 
   response = setupmod.makeCourseRequest();
   createlinks = setupmod.createlinks;
@@ -216,7 +231,7 @@ async function loadresources() {
 
     }
   }
-    setupmod.setlogoutbutton();
+  setupmod.setlogoutbutton();
  
 }
 loadresources();

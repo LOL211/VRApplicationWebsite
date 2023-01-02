@@ -35,7 +35,7 @@ export const makeCourseRequest = async()=> {
       )
   });
 
-  // console.log(r);
+
 
  return r;
 }
@@ -43,7 +43,7 @@ export const makeCourseRequest = async()=> {
  
 export const verifymemebership = async(classid)=> {
   let r; 
-  console.log("https://vr-app.fly.dev/home/"+classid);
+
  r = await fetch("https://vr-app.fly.dev/home/"+classid,
   {
       method:"POST",
@@ -61,7 +61,34 @@ export const verifymemebership = async(classid)=> {
   let td = new TextDecoder();
   let rd = r['body'].getReader();
   let belongs =  td.decode((await rd.read()).value);
-console.log(belongs)
+
+ return belongs;
+}
+
+
+
+export const getToken = async()=> {
+  let r; 
+
+ r = await fetch("http://localhost:8080/token",
+  {
+      method:"POST",
+      headers: {
+      'Accept':"*/*",
+      'Content-Type':"application/json",
+      'Access-Control-Allow-Origin': '*'
+      },
+      body:JSON.stringify(
+      {"requestType":"TEACHER",
+          "idToken": getCookie("id")
+      }
+      )
+  });
+  let td = new TextDecoder();
+  let rd = r['body'].getReader();
+  let belongs =  td.decode((await rd.read()).value);
+
+
  return belongs;
 }
 
@@ -72,9 +99,9 @@ export const decodeSingleResponse = async (response) =>{
   let belongs = false;
   rd.read().then(tt=>  {
     belongs = td.decode(tt.value);
-    // console.log(jsonResponse);
+
 });
-console.log(belongs)
+
 
 }
  
