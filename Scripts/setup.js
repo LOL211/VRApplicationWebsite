@@ -20,7 +20,7 @@ export const firebaseApp = initializeApp(
     
 export const makeCourseRequest = async()=> {
   let r; 
- r = await fetch("https://vr-app.fly.dev/home",
+ r = fetch("https://vr-app.fly.dev/home",
   {
       method:"POST",
       headers: {
@@ -70,7 +70,7 @@ export const verifymemebership = async(classid)=> {
 export const getToken = async()=> {
   let r; 
 
- r = await fetch("http://localhost:8080/token",
+ r = await fetch("https://vr-app.fly.dev/token",
   {
       method:"POST",
       headers: {

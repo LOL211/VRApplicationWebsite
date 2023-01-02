@@ -11,7 +11,7 @@ let classsname = getParameterByName("class");
 let storagefile;
 let teacher= false;
 let verify = false;
-let teachertoken;
+
 
 
 
@@ -208,7 +208,7 @@ async function loadresources() {
  
   import("https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js").then( async response => { 
     
-  authfile = response;
+    authfile = response;
     let token = await setupmod.getToken();
    
     auth = authfile.getAuth(setupmod.firebaseApp);
@@ -217,21 +217,20 @@ async function loadresources() {
   
 
 
-  response = setupmod.makeCourseRequest();
+  response = setupmod.makeCourseRequest().then(response=>{
+    while(true){
+       try{
+         setupmod.getCourses(setup, response);
+         setupmod.setlogoutbutton();
+         break;
+       }
+       catch(err)
+       {
+   
+       }}
+   })
   createlinks = setupmod.createlinks;
   createhome = setupmod.createhome;
-  while(true)
-  {
-    try{
-      setupmod.getCourses(setup, response);
-      break;
-    }
-    catch(error)
-    {
-
-    }
-  }
-  setupmod.setlogoutbutton();
  
 }
 loadresources();

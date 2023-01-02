@@ -35,21 +35,20 @@ let setupmod;
 
 async function loadresources() {
   setupmod= await import("./setup.js");
-  response = setupmod.makeCourseRequest();
-  createlinks = setupmod.createlinks;
-  createhome = setupmod.createhome;
-  while(true)
-  {
+  response = setupmod.makeCourseRequest().then(response=>{
+ while(true){
     try{
       setupmod.getCourses(setup, response);
       setupmod.setlogoutbutton();
       break;
     }
-    catch(error)
+    catch(err)
     {
 
-    }
-  }
+    }}
+})
+  createlinks = setupmod.createlinks;
+  createhome = setupmod.createhome;
  
 }
 loadresources();
