@@ -8,7 +8,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebas
 
 
 
-const firebaseApp = initializeApp(
+export const firebaseApp = initializeApp(
 {
   apiKey: "AIzaSyCpefYz7bDeQkV1evWvFpuEADfNPvsuABU",
 authDomain: "vr-application-29195.firebaseapp.com",
