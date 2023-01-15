@@ -40,7 +40,7 @@ const login = async () => {
     document.cookie = "id="+await getIdToken()+"; path=/;";
     document.cookie = "refreshtoken="+user.refreshToken+"; path=/";
 
-    window.open("../Html/home.html","_top"));
+    window.open("../Html/home.html","_top");
   })
   .catch(error => {
     alert("Unsucessful sign-in!")
