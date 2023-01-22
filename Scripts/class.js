@@ -113,7 +113,7 @@ async function getfiles(cname){
   while(table.rows.length!=1)
     table.deleteRow(-1);
   
-  storagefile.listAll(listRef)
+  await storagefile.listAll(listRef)
   .then((res) => {
     res.prefixes.forEach((folderRef) => {
     });
