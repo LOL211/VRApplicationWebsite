@@ -222,19 +222,9 @@ async function loadresources() {
     auth = authfile.getAuth(setupmod.firebaseApp);
     authfile.signInWithCustomToken(auth, token);
     signedin = true;
-  })
-while(true){
-  try{
+
     verify = await setupmod.verifymemebership(classsname)
-  }
-  catch(err){
-    console.log('');
-  }
-  break;
-}
-
-
-  response = setupmod.makeCourseRequest().then(response=>{
+    response = setupmod.makeCourseRequest().then(response=>{
     while(true){
        try{
          setupmod.getCourses(setup, response);
@@ -249,5 +239,14 @@ while(true){
   createlinks = setupmod.createlinks;
   createhome = setupmod.createhome;
  
+
+
+
+
+
+
+  })
+
+    
 }
 loadresources();
