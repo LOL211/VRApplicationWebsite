@@ -12,7 +12,7 @@ let storagefile;
 let teacher= false;
 let verify = false;
 
-
+let signedin = false;
 
 
 
@@ -105,7 +105,12 @@ async function getfiles(cname){
 
 
 
-  storagefile = await import("https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js")
+ storagefile  = await  storagefile ;
+
+while(!signedin){
+
+}
+
   const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef= storagefile.ref(storage, '/'+cname);
   let table = document.getElementsByClassName("table")[0];
@@ -204,10 +209,10 @@ function createrow(fileinfo, item)
 }
 
 async function loadresources() {
-  setupmod= await import("./setup.js");
+  setupmod= import("./setup.js");
 
-  verify = await setupmod.verifymemebership(classsname)
- 
+  
+  storagefile =  import("https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js")
   import("https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js").then( async response => { 
     
     authfile = response;
@@ -215,9 +220,10 @@ async function loadresources() {
    
     auth = authfile.getAuth(setupmod.firebaseApp);
     authfile.signInWithCustomToken(auth, token);
+    signedin = true;
   })
-  
-
+  setupmod = await setupmod;
+  verify = await setupmod.verifymemebership(classsname)
 
   response = setupmod.makeCourseRequest().then(response=>{
     while(true){
