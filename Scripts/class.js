@@ -216,13 +216,14 @@ async function loadresources() {
   import("https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js").then( async response => { 
     
     authfile = response;
+    setupmod = await setupmod;
     let token = await setupmod.getToken();
    
     auth = authfile.getAuth(setupmod.firebaseApp);
     authfile.signInWithCustomToken(auth, token);
     signedin = true;
   })
-  setupmod = await setupmod;
+
   verify = await setupmod.verifymemebership(classsname)
 
   response = setupmod.makeCourseRequest().then(response=>{
