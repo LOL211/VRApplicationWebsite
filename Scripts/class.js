@@ -223,8 +223,16 @@ async function loadresources() {
     authfile.signInWithCustomToken(auth, token);
     signedin = true;
   })
+while(true){
+  try{
+    verify = await setupmod.verifymemebership(classsname)
+  }
+  catch(err){
+    console.log('');
+  }
+  break;
+}
 
-  verify = await setupmod.verifymemebership(classsname)
 
   response = setupmod.makeCourseRequest().then(response=>{
     while(true){
