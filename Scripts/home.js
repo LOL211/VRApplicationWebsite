@@ -44,7 +44,7 @@ async function loadresources() {
     }
     catch(err)
     {
-
+      console.log("hmm");
     }}
 })
   createlinks = setupmod.createlinks;
