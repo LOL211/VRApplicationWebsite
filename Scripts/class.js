@@ -51,10 +51,26 @@ function getParameterByName(name, url = window.location.href) {
 async function uploadfiles(file){
 
   const storage = storagefile.getStorage(setupmod.firebaseApp);
-  const listRef=storagefile.ref(storage, '/'+classsname+'/'+file.name);
-  await storagefile.uploadBytes(listRef, file).then((snapshot) => {
-   getfiles(classsname)
-  });
+    if(file.name.includes(" "))
+    {
+      const newwFile = new Blob([file], {type: file.type});
+      newwFile.name = file.name.replaceAll(" ","_");
+      
+      const newfile = new File([newwFile], newwFile.name, {type: file.type});
+     
+      const listRef=storagefile.ref(storage, '/'+classsname+'/'+ newfile .name);
+      await storagefile.uploadBytes(listRef, newfile).then((snapshot) => {
+       getfiles(classsname)
+      });
+    }
+    else
+    {
+      const listRef=storagefile.ref(storage, '/'+classsname+'/'+file.name);
+      await storagefile.uploadBytes(listRef, file).then((snapshot) => {
+       getfiles(classsname)
+      });
+    }
+
   
   return null;
   }
