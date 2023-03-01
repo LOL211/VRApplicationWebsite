@@ -81,6 +81,7 @@ async function uploadfiles(file){
     let fileinput = document.createElement("input");
     let filesubmit = document.createElement("button");
     fileinput.setAttribute("type", "file");
+    
     fileinput.setAttribute("id", "file");
     filesubmit.setAttribute("type", "button");
     filesubmit.innerHTML="Upload file";
@@ -114,19 +115,18 @@ async function getfiles(cname){
 
 
   if(verify !="true")
- {
-  document.getElementById("bodydiv").innerHTML="<p> Sorry you don't have permission to view this class</p>"
-  return;
- }
+  {
+      document.getElementById("bodydiv").innerHTML="<p> Sorry you don't have permission to view this class</p>"
+      return;
+  }
 
 
 
- storagefile  = await  storagefile ;
+  storagefile  = await  storagefile ;
+  while(!signedin){
 
-while(!signedin){
-
-}
-
+  }
+  
   const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef= storagefile.ref(storage, '/'+cname);
   let table = document.getElementsByClassName("table")[0];
@@ -238,7 +238,7 @@ async function loadresources() {
     auth = authfile.getAuth(setupmod.firebaseApp);
     authfile.signInWithCustomToken(auth, token);
     signedin = true;
-
+    document.querySelector("title").innerHTML=classsname;
     verify = await setupmod.verifymemebership(classsname)
     response = setupmod.makeCourseRequest().then(response=>{
     while(true){
