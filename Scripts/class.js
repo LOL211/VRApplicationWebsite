@@ -80,8 +80,11 @@ async function uploadfiles(file){
     let container = document.createElement("div");
     let fileinput = document.createElement("input");
     let filesubmit = document.createElement("button");
+    let labeltag = document.createElement("label");
+    labeltag.innerHTML="Upload file ";
+    labeltag.setAttribute('for', "file");
     fileinput.setAttribute("type", "file");
-    fileinput.setAttribute("label", "File upload location")
+
     fileinput.setAttribute("id", "file");
     filesubmit.setAttribute("type", "button");
     filesubmit.innerHTML="Upload file";
@@ -100,6 +103,7 @@ async function uploadfiles(file){
       });
       
     }
+    container.append(labeltag);
     container.appendChild(fileinput);
     container.appendChild(filesubmit);
   
