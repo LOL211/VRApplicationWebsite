@@ -241,16 +241,16 @@ async function loadresources() {
     document.querySelector("title").innerHTML=classsname;
     verify = await setupmod.verifymemebership(classsname)
     response = setupmod.makeCourseRequest().then(response=>{
-    while(true){
+    // while(true){
        try{
          setupmod.getCourses(setup, response);
          setupmod.setlogoutbutton();
-         break;
+         //break;
        }
        catch(err)
        {
    
-       }}
+       }//}
    })
   createlinks = setupmod.createlinks;
   createhome = setupmod.createhome;
