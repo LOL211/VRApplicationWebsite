@@ -207,6 +207,7 @@ saveBlob(allblobs, fileref.name);
 function createrow(fileinfo, item)
 {
   let row = document.createElement("tr");
+  row.setAttribute("tabindex","0");
   row.classList.add("data-row")
   let filename = document.createElement("td");
   filename.innerHTML=fileinfo.filename;
@@ -217,13 +218,11 @@ function createrow(fileinfo, item)
   row.appendChild(filename);
   row.appendChild(filedate);
   row.appendChild(filesize);
-
-
-  row.onclick= 
-  ()=>{
   
+  row.addEventListener("click",
+  ()=>{
     downloadfile(item);
-  };
+  });
 
   return row;
 }
@@ -253,7 +252,7 @@ async function loadresources() {
        }
        catch(err)
        {
-   
+        alert("Error loading page, please refresh")
        }//}
    })
   createlinks = setupmod.createlinks;
