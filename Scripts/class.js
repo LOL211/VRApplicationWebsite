@@ -81,7 +81,7 @@ async function uploadfiles(file){
     let fileinput = document.createElement("input");
     let filesubmit = document.createElement("button");
     fileinput.setAttribute("type", "file");
-    
+    fileinput.setAttribute("label", "File upload location")
     fileinput.setAttribute("id", "file");
     filesubmit.setAttribute("type", "button");
     filesubmit.innerHTML="Upload file";
