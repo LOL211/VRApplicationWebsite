@@ -59,4 +59,7 @@ function clearcookies(){
   }
 }
 
-login_btn.addEventListener("click", login)
+login_btn.addEventListener("click", (e)=>{
+e.preventDefault();
+login()
+});
