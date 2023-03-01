@@ -95,13 +95,15 @@ body{
     top:15%;
     padding:0px;
     text-align: left;
+   
 
 }
+
 #menu a{
     padding:5px;
   vertical-align: middle;
    text-decoration: none;
-    
+   color:#5998ff;
    
 
 }
