@@ -23,6 +23,7 @@ let user;
 const getIdToken =()=> user.getIdToken().then((result) => {return result});
 
 const login = async () => {
+  let datenow = Date.now()
   const email = loginemail.value
   const password = loginpass.value;
 
@@ -36,7 +37,8 @@ const login = async () => {
   
     document.cookie = "id="+await getIdToken()+"; path=/;";
     document.cookie = "refreshtoken="+user.refreshToken+"; path=/";
-
+    let timetake = Date.now()-datenow;
+    console.log("Time take in "+timetake)
     window.open("../Html/home.html","_top");
   })
   .catch(error => {
