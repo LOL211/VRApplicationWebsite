@@ -96,10 +96,11 @@ async function uploadfiles(file){
         alert("Select file");
         return;
       }
-
+      let datenow = Date.now();
       document.getElementById("heading").innerHTML="Uploading "+file.name+"";
       uploadfiles(file).then(no =>{
         document.getElementById("heading").innerHTML="Uploaded "+file.name+"";
+        console.log("Time taken to upload is "+ (Date.now()-datenow))
       });
       
     }
