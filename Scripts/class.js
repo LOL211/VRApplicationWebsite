@@ -163,7 +163,7 @@ async function getfiles(cname){
 
        let fileinfo ={
         filename: metadata.name,
-        filesize: metadata.size/1000,
+        filesize: metadata.size/(1024*1024),
         filedate:  date.toLocaleDateString(undefined, options)
        }
       document.getElementsByClassName("table")[0].appendChild(createrow(fileinfo, itemRef));
