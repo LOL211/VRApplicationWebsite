@@ -33,6 +33,20 @@ function setup(response)
   document.getElementById("classtitle").innerHTML+= classsname;
   document.getElementById("title").innerHTML+=response.name;
 
+
+  let heading = document.getElementById("cap");
+  heading.innerHTML="<p id =\"heading\"></p>";
+
+  if(teacher=="Teacher")
+  {
+    heading.appendChild(uploadfilesbutton());
+    let delHeading = document.createElement("th")
+    delHeading.innerHTML="Delete"
+    document.querySelector("table tr").appendChild(delHeading)
+  
+  }
+
+
   getfiles(classsname);
 
 
@@ -138,10 +152,15 @@ async function getfiles(cname){
 
 
 
-  storagefile  = await  storagefile ;
+  storagefile  = await storagefile ;
   while(!signedin){
 
   }
+
+
+
+
+
   
   const storage = storagefile.getStorage(setupmod.firebaseApp);
   const listRef= storagefile.ref(storage, '/'+cname);
@@ -163,7 +182,7 @@ async function getfiles(cname){
 
        let fileinfo ={
         filename: metadata.name,
-        filesize: metadata.size/(1024*1024),
+        filesize: (metadata.size/(1024*1000)).toFixed(2),
         filedate:  date.toLocaleDateString(undefined, options)
        }
       document.getElementsByClassName("table")[0].appendChild(createrow(fileinfo, itemRef));
@@ -177,13 +196,7 @@ async function getfiles(cname){
     // Uh-oh, an error occurred!
   });
 
-  let heading = document.getElementById("cap");
-  heading.innerHTML="<p id =\"heading\"></p>";
 
-  if(teacher=="Teacher")
-  {
-    heading.appendChild(uploadfilesbutton());
-  }
 
 }
 
@@ -227,9 +240,46 @@ function createrow(fileinfo, item)
   filedate.innerHTML = fileinfo.filedate;
   let filesize= document.createElement("td");
   filesize.innerHTML = fileinfo.filesize;
+
+
+
+
+
   row.appendChild(filename);
   row.appendChild(filedate);
   row.appendChild(filesize);
+
+
+  if(teacher=="Teacher")
+  {
+
+    let element = document.createElement("td")
+    let delbut = document.createElement("button");
+    delbut.innerHTML="Delete"
+
+    delbut.addEventListener("click",  (e)=>{
+      
+      
+      e.stopImmediatePropagation();
+     
+        let refToFile = storagefile.ref(storagefile.getStorage(setupmod.firebaseApp), classsname+"/"+fileinfo.filename)
+        storagefile.deleteObject(refToFile)
+        .then(()=>{
+          getfiles(classsname);
+        })
+        .catch((err)=>{
+          console.log(err)
+          alert("Error, refresh page")
+        })
+      
+      
+    
+    });
+
+    element.appendChild(delbut)
+    row.appendChild(element)
+  }
+
   
   row.addEventListener("click",
   ()=>{

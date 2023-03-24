@@ -7,6 +7,13 @@ caption{
   .data-row{
     cursor: pointer;
 }
+button{
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: grey;
+}
 
 .data-row:focus{
     background-color: rgb(173, 173, 173);
