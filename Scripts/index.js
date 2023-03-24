@@ -30,10 +30,7 @@ const login = async () => {
   auth.signInWithEmailAndPassword(email, password)
   .then(async (response) => {
    
-  
-    alert('You\'re successfully signed in !');
-
-    user = response["user"]
+      user = response["user"]
 
      clearcookies();
   
