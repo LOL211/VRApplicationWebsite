@@ -182,7 +182,7 @@ async function getfiles(cname){
 async function downloadfile(fileref)
 {
 
-
+let datenow = Date.now();
   document.getElementById("heading").innerHTML="Downloading "+fileref.name+"";
   let allblobs = await storagefile.getBlob(fileref);
   document.getElementById("heading").innerHTML="Downloaded "+fileref.name+"";
@@ -200,7 +200,7 @@ async function downloadfile(fileref)
 }());
   
 saveBlob(allblobs, fileref.name);
-
+console.log("Time taken in "+(Date.now()-datenow))
 }
 
 
