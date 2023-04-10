@@ -15,8 +15,7 @@ const auth = firebaseApp.auth();
 login_btn = document.getElementById('login_btn')
 loginpass = document.getElementById('login_password')
 loginemail = document.getElementById('login_email')
-loginpass.value="test1234";
-loginemail.value="teacher1@gmail.com";
+
 
 
 let user;
