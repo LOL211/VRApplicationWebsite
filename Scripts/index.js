@@ -17,7 +17,7 @@ loginpass = document.getElementById('login_password')
 loginemail = document.getElementById('login_email')
 
 
-
+alert("To sign in, use teacher1 or teacher2  or student1 to student4 all @gmail.come with password test1234");
 let user;
 const getIdToken =()=> user.getIdToken().then((result) => {return result});
 
